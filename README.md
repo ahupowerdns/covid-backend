@@ -93,7 +93,7 @@ healthcare providers, erroneous data etc.
 
 # Healthcare provider interface
 It seems that the best reports of infection status will come only when
-authoritzed by healthcare providers.
+authorized by healthcare providers.
 
 This means that users can not directly report themselves, they will need
 some kind of authorization for that from their doctor or hospital. 
