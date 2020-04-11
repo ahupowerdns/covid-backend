@@ -62,7 +62,7 @@ The upshot is that all apps must initially download a large set of relevant
 keys, and from them on must receive incremental updates.
 
 # Key requirements
-This will be serious public health infratructure. It needs to be always on,
+This will be serious public health infrastructure. It needs to be always on,
 it needs to not go down, not send out bad data, and be able to recover from
 malicious attacks. It needs to deal with lost keys, confused overworked
 healthcare providers, erroneous data etc.
@@ -90,6 +90,49 @@ healthcare providers, erroneous data etc.
    to fix whatever things have gone wrong.
  * Redundant - a proper reduntant architecture with multiple downstreams
    makes migrations and upgrades easy. And downgrades.
+
+# Healthcare provider interface
+It seems that the best reports of infection status will come only when
+authoritzed by healthcare providers.
+
+This means that users can not directly report themselves, they will need
+some kind of authorization for that from their doctor or hospital. 
+
+To do so requires infrastructure that can be delivered at very high speed to
+doctors and labs. This may be as simple as a stack of paper with big numbers
+on them, every piece of paper is good for reporting one patient. 
+
+So what happens is that patient gets a test, test is positive, healthcare
+provider gives piece of paper to the patient. Patient goes to app, pushes
+the "I am infected button". App asks for the number, patient enters it. Our
+backend now confirms receipt, and invalidates that code. 
+
+Patient discards the now useless piece of paper.
+
+Every set of numbers is tied to a specific healthcare provider. If they lose
+track of their stack of papers, we can invalidate their numbers, either
+prospectively ('no more reports') or even retroactively if we know all their
+reports have been bogus.
+
+Healthcare providers we know and have an authorization can print numbers
+themselves, or request individual numbers on a website. 
+
+# Hosting requirements
+We will not only need to build the software, we should offer the hosting as
+well.
+
+This requires:
+
+ * Superior DoS filtering: because we live in bad times
+ * Non-cloud hosting within the jurisdiction of the healthcare system. In
+   practice for us this will mean 'In the EU' or 'In The Netherlands',
+   likely on servers that someone actually owns. 
+ * 24/7 support
+ * Likely hosting with relevant certifications for security, possibly
+   healthcare data.
+
+
+
 
 # Inspiration
 
