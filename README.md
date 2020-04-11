@@ -1,6 +1,8 @@
 # covid-backend
 Backend for privacy preserving corona contact tracing
 
+bert@hubertnet.nl / [@PowerDNS_Bert](https://twitter.com/PowerDNS_Bert) 
+
 The Dutch government [just launched a
 tender](https://www.rijksoverheid.nl/actueel/nieuws/2020/04/11/oproep-om-mee-te-denken-over-apps) for "[digital technologies that can help with
 Corona](https://www.tenderned.nl/tenderned-tap/aankondigingen/192421)".  The tender includes words on
@@ -60,5 +62,37 @@ The upshot is that all apps must initially download a large set of relevant
 keys, and from them on must receive incremental updates.
 
 # Key requirements
-TBC
+This will be serious public health infratructure. It needs to be always on,
+it needs to not go down, not send out bad data, and be able to recover from
+malicious attacks. It needs to deal with lost keys, confused overworked
+healthcare providers, erroneous data etc.
 
+ * Privacy. Data minimization. Anything we don't need we should not have.
+   Things that we do need we should have, even at the cost of some privacy.
+   This might include storing IP address of a report briefly to combat
+   fraud/spam/attacks. Almost nothing we can do about that.
+ * Security. This is of the utmost importance. No privacy without security,
+   no availability if we are hacked. Prefer to be secure over being
+   available. But we try to be always on!
+ * Always on in read mode: it is ok if the app can't update briefly, but we
+   would definitely like to avoid that.  When we launch, 100s of thousands
+   of users will arrive very quickly, we want to give them a good
+   experience! 
+ * Always on in write-mode: if a healthcare provider and/or user want to
+   report an infection, this should ALWAYS WORK and once reported and
+   confirmed, the data should be DURABLE. It should not ever fail to be
+   stored.
+ * Recoverable: we live in crazy times. We are in a hurry. Mistakes will be
+   made. The system should always be recoverable from scratch based on a log of
+   all incoming events. This should be a "5 minute operation". 
+ * Flexible: again, because we live in crazy times, bad reports will be
+   made, accidental reports will need to be removed. We should have tooling
+   to fix whatever things have gone wrong.
+ * Redundant - a proper reduntant architecture with multiple downstreams
+   makes migrations and upgrades easy. And downgrades.
+
+# Inspiration
+
+ * https://apenwarr.ca/log/20190216 - "The log/event processing pipeline you can't
+   have", an extremly robust design for collecting data. Also used by the
+   [galmon.eu](https://galmon.eu) project.
