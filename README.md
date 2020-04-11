@@ -1,7 +1,8 @@
 # covid-backend
 Backend for privacy preserving corona contact tracing
 
-bert@hubertnet.nl / [@PowerDNS_Bert](https://twitter.com/PowerDNS_Bert) 
+bert@hubertnet.nl / [@PowerDNS_Bert](https://twitter.com/PowerDNS_Bert) /
+[LinkedIn](https://www.linkedin.com/in/bert-hubert-b05452/)
 
 The Dutch government [just launched a
 tender](https://www.rijksoverheid.nl/actueel/nieuws/2020/04/11/oproep-om-mee-te-denken-over-apps) for "[digital technologies that can help with
@@ -39,9 +40,8 @@ completely open so multiple apps can make use of this platform. All code
 will be OPEN SOURCE.
 
 More background is on [the call to action
-page](https://berthub.eu/articles/posts/tracing-app-backend/). Thoughts on
-[Corona contact
-tracing](https://berthub.eu/articles/posts/tracing-app-thoughts-and-links/).
+page](https://berthub.eu/articles/posts/tracing-app-backend/). Also read: 
+[Thoughts on Corona contact tracing](https://berthub.eu/articles/posts/tracing-app-thoughts-and-links/).
 
 # Context
 Various privacy preserving technologies are being developed, an overview is
