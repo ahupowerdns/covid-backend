@@ -41,6 +41,24 @@ page](https://berthub.eu/articles/posts/tracing-app-backend/). Thoughts on
 [Corona contact
 tracing](https://berthub.eu/articles/posts/tracing-app-thoughts-and-links/).
 
-Design
-------
+# Context
+Various privacy preserving technologies are being developed, an overview is
+[here](https://berthub.eu/articles/posts/tracing-app-thoughts-and-links/).
+
+What all (or at least most) have in common that infections are reported as a
+series of small keys. Such keys may be reported directly, or via a trusted
+healthcare provider. 
+
+Once a set of keys has been accepted it must be distributed to all users of
+the app. There will likely be millions and millions of app users. There will
+also be hundreds of thousand infected keys in the system.
+
+Each key is also associated with a date. Old keys should no longer be shared
+as they are of no further relevance given the incubation time of COVID-19.
+
+The upshot is that all apps must initially download a large set of relevant
+keys, and from them on must receive incremental updates.
+
+# Key requirements
 TBC
+
