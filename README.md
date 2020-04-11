@@ -61,6 +61,13 @@ as they are of no further relevance given the incubation time of COVID-19.
 The upshot is that all apps must initially download a large set of relevant
 keys, and from them on must receive incremental updates.
 
+> Note: most of the logic happens in the apps. The various protocols
+> ([DP-3T](https://github.com/DP-3T/documents) or
+> [Apple/Google](https://covid19-static.cdn-apple.com/applications/covid19/current/static/contact-tracing/pdf/ContactTracing-CryptographySpecification.pdf)) make sure
+> only the most relevant data is uploaded. This project attempts to be the
+> place where that data gets uploaded. So this project services the privacy
+> preserving protocols.
+
 # Key requirements
 This will be serious public health infrastructure. It needs to be always on,
 it needs to not go down, not send out bad data, and be able to recover from
