@@ -61,6 +61,13 @@ as they are of no further relevance given the incubation time of COVID-19.
 The upshot is that all apps must initially download a large set of relevant
 keys, and from them on must receive incremental updates.
 
+> Note: most of the logic happens in the apps. The various protocols
+> ([DP-3T](https://github.com/DP-3T/documents) or
+> [Apple/Google](https://covid19-static.cdn-apple.com/applications/covid19/current/static/contact-tracing/pdf/ContactTracing-CryptographySpecification.pdf)) make sure
+> only the most relevant data is uploaded. This project attempts to be the
+> place where that data gets uploaded. So this project services the privacy
+> preserving protocols.
+
 # Key requirements
 This will be serious public health infrastructure. It needs to be always on,
 it needs to not go down, not send out bad data, and be able to recover from
@@ -132,10 +139,34 @@ This requires:
    healthcare data.
 
 
-
-
 # Inspiration
 
  * https://apenwarr.ca/log/20190216 - "The log/event processing pipeline you can't
    have", an extremly robust design for collecting data. Also used by the
    [galmon.eu](https://galmon.eu) project.
+
+# Very tentative design ideas
+## Submission
+Reporting a infection is a simple POST to a very redundant server that logs
+the post as durably as possible. A POST might not be accepted because it has
+no valid matching healthcare provider token, so we can't just log POSTs and
+hope for the best. Some interaction is required it appears. 
+
+If we could be somewhat asynchronous we could log POSTS without interaction
+and have a 100% up collector. Very tempting. This would require the app to
+ask back to see if the report was accepted. Might be worth it. We could
+provide a tracking ID in response to a POST.
+
+## Polling
+It would be SUPER ACE if we could put the data files on a CDN and not have
+to worry about them anymore. The initial data file would be quite large, and
+you'd have to apply delta-sets to them.
+
+There is no need to do realtime transmission of updates, it is acceptable to
+have some delay. Perhaps delta files per 15 minutes? And always also
+generate a full dump so 'dumb apps' could use that instead?
+
+File need built-in integrity check so we know we got a full file correctly. 
+
+Note that delta-sets also include deletion events, either because the key is
+no longer relevant (post 14 days) or because we corrected a mistake.
