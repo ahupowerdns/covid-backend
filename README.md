@@ -98,7 +98,7 @@ healthcare providers, erroneous data etc.
  * Redundant - a proper reduntant architecture with multiple downstreams
    makes migrations and upgrades easy. And downgrades.
 
-# Healthcare provider interface
+# Healthcare provider / point of care interface
 It seems that the best reports of infection status will come only when
 authorized by healthcare providers.
 
@@ -123,6 +123,8 @@ reports have been bogus.
 
 Healthcare providers we know and have an authorization can print numbers
 themselves, or request individual numbers on a website. 
+
+More information about point of care logistics are [here](point-of-care.md).
 
 # Hosting requirements
 We will not only need to build the software, we should offer the hosting as
