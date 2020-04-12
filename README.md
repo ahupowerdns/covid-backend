@@ -144,6 +144,9 @@ This requires:
  * https://apenwarr.ca/log/20190216 - "The log/event processing pipeline you can't
    have", an extremly robust design for collecting data. Also used by the
    [galmon.eu](https://galmon.eu) project.
+ * [Golomb Coded Sets](https://giovanni.bajo.it/post/47119962313/golomb-coded-sets-smaller-than-bloom-filters)
+   are a way to compress many numbers that are geometrically distributed - like cryptographic keys. It may even 
+   be possible to use compressed sets with only partial hashes, and a confirmation API in case of a hit.
 
 # Very tentative design ideas
 ## Submission
