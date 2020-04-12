@@ -40,6 +40,18 @@ If we had more time, point of care would submit the infected status
 synchronously, using a tool that only works when signed in. But in the short
 term this may not be practicable.
 
+## Healthcare assisted reporting
+One other way to do it is that the when diagnosed, the healthcare provider
+does the report. This takes time. If the HCP does so using the patients
+phone, nothing else is required. Simply take the phone, enter the token,
+press submit.
+
+If this is not feasible, for example because there is no physical contact,
+the HCP could instruct the patient how to submit data over the phone.
+
+The worry is that the patient might not report, I am unsure how to enforce
+this.
+
 ## QR Code
 Given that the authorization key will look something like this:
 
