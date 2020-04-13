@@ -83,10 +83,15 @@ So we would display:
 "qr code"
 
 Code 1: 943 702
+
 Code 2: 897 561
+
 Code 3: 983 450
+
 Code 4: 965 072
+
 Code 5: 156 304
+
 Code 6: 394 580
 
 If we do this, we do not have to compromise on security and have no 
