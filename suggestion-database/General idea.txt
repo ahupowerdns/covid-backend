@@ -1,0 +1,90 @@
+Note that everything in this file is a suggestion.
+In other words: Nothing in this file is definitive.
+
+
+The general idea:
+
+We have a very simple web frontend page on which a healthcare worker
+can authorize the upload of new daily tracing keys (dtks) from the app.
+
+In this web application a healthcare worker can:
+-	Log in.
+-	Authorize a one-time upload of dtks from a user's app.
+-	View all dtks uploaded by the users he or she has authorized.
+-	Retract dtks uploaded by the users he or she has authorized.
+-	View all dtks he or she has retracted (retractions cannot be undone).
+
+A mobile app can:
+-	Submit a range of daily tracing keys ONCE by using a token-code
+	provided by a healthcare worker.
+
+Before the webserver returns a "200 OK", the web application stores
+the data it receives in:
+-	a database which uses a schema like the one in COVID-backend.sql
+-	a plain-text file for each individual request in a non-public
+	directory on the webserver. For example: This could be a server 
+	log-file if the server can be configured appropriately.
+
+If either one fails, the server returns a 503 error code so the client
+is aware that its request could not be handled at this point in time.
+
+The information in the database is then used to generate a static set of
+key files with file-format YMMDDHH-NNNNN.gz, which contains a GZip 
+compressed concatenation of all daily tracing keys we have received in a 
+given time interval.
+
+For example:
+The file 0041311-18365.gz will contain all daily tracing keys with 
+day-number 18365, which corresponds with the time interval between
+2020-04-13T14:03:53+00:00 and 2020-04-13T14:04:29+00:00 that we have 
+received between 2020-04-13T10:00:00+00:00 and 2020-04-13T11:00:00+00:00.
+
+The time format used is defined in ISO 8601.
+
+We use this file format in 2 directories named "active" and "retracted".
+
+If a dtk appears in a file in the active directory, this means that this
+dtk belongs to a person that had a COVID-19 infection which was or is 
+capable of actively infecting new people in the time-interval denoted by
+that specific day-number.
+
+If a dtk appears in the "retracted" folder, it means that that dtk was 
+uploaded wrongfully which means that it should not be treated as
+belonging to a person infected with COVID-19 at the time interval 
+specified by the day number.
+
+Once every hour a relatively simple program connects to the database to 
+generate new files with dtks and places them in the active and retracted
+folders for distribution.
+
+We can guarantee integrity by calculating checksums, for example by 
+running a command like "sha256sum *-*.gz > SHA256SUMS". This file can 
+also serve as an index-file for clients.
+
+We can guarantee authenticity by signing the SHA256SUMS file with PGP,
+OpenSSL or something simmilar. The corresponding public key has to be 
+distributed to clients through an update of the app.
+
+This approach has the following benefits:
+-	The files with keys are static and have to be downloaded only once
+	by each client.
+-	These files contain only information about infections and none of 
+	this information can be used to personally identify an infected 
+	person, so they can be be uploaded to regular mirrors and CDNs.
+	They can also be distributed over plain HTTP, which makes easy forms
+	of caching possible.
+-	Clients leak no information about their own status, as every client 
+	has to download all these files at once.
+-	Clients should only download the "delta files" which contain the 
+	mutations in the data present on the backend, which considerably 
+	lowers the amount of bandwidth required.
+-	Clients do not have to keep an extensive record of which keys they 
+	have already validated. Only YMMDDHH has to be stored in memory to 
+	be fully up to date.
+-	The files with dtks can be distributed using existing tools.
+-	All software components involved should be relatively simple.
+-	The process is simple and explainable.
+
+Information about the Apple/Google protocol which defines the calculation 
+of day numbers and daily tracing keys can be found by following links in
+the announcement of the protocol at: https://www.apple.com/newsroom/2020/04/apple-and-google-partner-on-covid-19-contact-tracing-technology/
