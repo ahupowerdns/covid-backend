@@ -65,5 +65,29 @@ requirements a bit, the code may look like this:
 If we do this, we need a font where the 0 and the O are really different, or
 maybe underline the digits.
 
+### Another alternative
 
+We can generate 16 random bytes and use this as random authentication code.
 
+We can format this output as 6 numbers of 6 digits in length.
+
+This gives us an field of 10^36 which translates to an entropy of 
+ln(10)/ln(2) which is about 119 bits which puts us in the realm of the
+complexity of 3DES.
+
+Scanning a QR-code is easiest, but the healthcare worker can also read out
+these numbers over the phone.
+
+So we would display:
+
+"qr code"
+
+Code 1: 943 702
+Code 2: 897 561
+Code 3: 983 450
+Code 4: 965 072
+Code 5: 156 304
+Code 6: 394 580
+
+If we do this, we do not have to compromise on security and have no 
+problems with fonts.
